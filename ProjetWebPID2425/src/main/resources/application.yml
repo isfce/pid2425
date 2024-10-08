@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: ProjetWebPID2425
+  main:
+    banner-mode: off
+  profiles:
+    active:
+    - dev
+---
+spring:
+  config:
+    activate:
+      on-profile:
+      - dev
+  datasource:
+    url: 'jdbc:h2:~/PID_DB/pidDB_2425'
+    username: sa
+    password:
+  sql:
+#Permet d'exécuter le fichier data-h2.sql pour insérer des données
+    init:
+      mode: always
+      platform: h2
+      encoding: UTF-8
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: true
+#    database-platform: 'org.hibernate.dialect.H2Dialect'
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      path: /h2
+      settings:
+        trace: false
+        web-allow-others: false
+  

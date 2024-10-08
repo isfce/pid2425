@@ -1,0 +1,53 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.4'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'org.isfce.pid'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//Ajout manuel pour pouvoir utiliser les layout en Thymeleaf
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.h2database:h2'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	//WebJar
+	implementation 'org.webjars:bootstrap:5.3.+'
+	implementation 'org.webjars:jquery:3.4.+'
+	implementation 'org.webjars:popper.js:2.11.+'
+	implementation 'org.webjars:font-awesome:6.4.0'
+	implementation 'org.webjars:bootbox:5.4.+'
+	//Pour permettre une utilisation des webjar sans préciser la version
+	//et détecter l'endroit où se trouve les webjar
+	implementation 'org.webjars:webjars-locator:0.47'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
