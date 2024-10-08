@@ -6,6 +6,12 @@ spring:
   profiles:
     active:
     - dev
+  thymeleaf:
+    encoding: UTF-8
+    mode: HTML
+  messages:
+    basename: messages
+    encoding: UTF-8
 ---
 spring:
   config:

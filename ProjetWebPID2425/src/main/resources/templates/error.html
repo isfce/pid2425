@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title th:text="#{error.page}">Erreur</title>
+</head>
+<body>
+	<main class="container" layout:fragment="content">
+		<div class="row">
+			<div class="col">
+				<h3 class="text-center bg-danger text-white" th:text="#{error.page}"></h3>
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col">
+				<table class="table">
+					<thead class="table-warning">
+						<tr>
+							<th scope="col" th:text="#{error.head.element}">Element</th>
+							<th scope="col" th:text="#{error.head.contenu}">Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${path}!=null">
+							<td scope="row">URL</td>
+							<td th:text="${path}">URL appelée</td>
+
+						</tr>
+						<tr th:if="${exception!=null && exception.code != null}">
+							<td scope="row">Message</td>
+							<td th:text="#{${exception.message}(${exception.code})}">code
+								de l'objet</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

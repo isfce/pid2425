@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+	<!-- Required meta tags for bootstrap-->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Home Page</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1 th:text="#{home.bienvenu}">
+			Bienvenu au cours de PID
+		</h1>
+		<h2 th:text="#{home.titre}">un titre</h2>
+		<p th:text="|Encodage: ${encodage}|">Encodage</p>
+
+		<a th:href="@{/garniture/liste}">Liste des garniture</a>
+
+	</div>
+
+</body>
+</html>

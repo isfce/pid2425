@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">PID</title>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css/}" />
+<link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}" />
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
+
+</head>
+<body>
+
+	<!-- Main Navigation -->
+	<div layout:fragment="header">
+		<nav class="navbar navbar-expand-md navbar-light  bg-light">
+			<a class="navbar-brand" href="http://www.isfce.org" target="_blank">
+				<img th:src="@{/images/LogoISFCE.png}" width="40" height="40"
+				class="d-inline-block align-text-top" alt=""> ISFCE
+			</a>
+
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item active">
+					<a class="nav-link" th:href="@{/}"
+						th:text="#{navbar.home}">
+						Home 
+					</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a	class="nav-link dropdown-toggle" href="#" id="GarnitureDropdown"
+						data-bs-toggle="dropdown" aria-expanded="false"
+						th:text="#{garniture}">
+						Garniture
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="GarnitureDropdown">
+				  		<li>
+				  	  		<a class="dropdown-item" th:href="@{/garniture/liste}"
+					     		th:text="#{navbar.liste}">
+					 	 		liste
+					  		</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+
+			<ul class="navbar-nav ms-auto me-2">
+				<li class="nav-item dropdown">
+					<a	class="nav-link dropdown-toggle" href='#' id="LangDropdown"
+					data-bs-toggle="dropdown"  aria-expanded="false"
+					th:text="${#locale.language} == 'fr' ? #{lang.french} : #{lang.english}">
+					Langue
+					</a>
+					<ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="LangDropdown">
+						<li>
+						<a class="dropdown-item" th:href="@{''(lang=fr)}">
+							<img th:src="@{/images/France.png}" width="30" height="20"
+							th:text="'&nbsp'+#{lang.french}">
+						</a>
+						</li>
+						<li> 
+						<a class="dropdown-item" th:href="@{''(lang=en)}"> 
+							<img th:src="@{/images/England.png}" width="30" height="20"
+							th:text="'&nbsp'+#{lang.english}">
+						</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+
+		</nav>
+	</div>
+
+	<!-- Content Section -->
+	<main class="container" layout:fragment="content">
+		<p>Cette partie sera remplacée par le fragment 'content'</p>
+	</main>
+
+	<!-- 	jQuery must come first, then Popper.js, bootstrap.js and others JS -->
+	<div layout:fragment="scripts">
+		<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+		<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+		<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	</div>
+	<!-- Optional Section -->
+	<th:block layout:fragment="optional" />
+
+	<footer>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col">
+					<p class="text-right" th:text="'&copy;'+#{footer.message}">&copy;PID</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

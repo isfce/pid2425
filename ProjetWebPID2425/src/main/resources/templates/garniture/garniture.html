@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ 	layout:decorate="~{layout}">
+<head>
+<title th:text="#{garniture.detail.titre}">Détails</title>
+</head>
+
+<body>
+	
+	<main class="container" layout:fragment="content">
+		<div class="row">
+			<div class="col-1">
+				<a th:href="@{/garniture/liste}"><i class="fa fa-chevron-left"></i></a>
+			</div>
+			<div class="col-11">
+				<h3 th:text="#{garniture.detail.titre}">Titre</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-4" th:text="#{garniture.code}">Code</div>
+
+
+			<div class="col-8" th:text="${garniture.code}">Valeur</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-4" th:text="#{garniture.nom}">Nom</div>
+
+			<div class="col-8" th:text="${garniture.nom}">Valeur</div>
+
+		</div>
+		
+		<div class="row">
+			<div class="col p-2 text-left">
+				<a class="btn btn-outline-success"
+					th:href="@{|/garniture/${garniture.code}/update|}"
+					th:text="#{action.update}"></a>
+			</div>
+		</div>
+	</main>
+
+</body>
+</html>

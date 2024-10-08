@@ -8,9 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name = "TGARNITURE")
+@Entity(name = "TSAUCE")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Garniture {
+public class Sauce {
 	@Id
 	@Column(length = 4,updatable = false)
 	private String code;
@@ -18,6 +18,7 @@ public class Garniture {
 	@Column(length = 30,nullable = false,updatable = false )
 	private String nom;
 	
-	@Column
+	//@Column
 	private boolean disponible;
+
 }
