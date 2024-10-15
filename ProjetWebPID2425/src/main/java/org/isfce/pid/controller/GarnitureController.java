@@ -47,8 +47,8 @@ public class GarnitureController {
 	 * @return
 	 */
 	@GetMapping("/{code}")
-	public String detailGarniture(@PathVariable String code, Model model) {
-		log.debug("Recherche la garniture: " + code);
+	public String detailGarniture(@PathVariable("code") String code, Model model) {
+		log.info("Recherche la garniture: " + code);
 		// si ce n'est pas une redirection, charge la garniture
 		if (!model.containsAttribute("garniture"))
 			// recherche la garniture dans la liste et ajout au model
