@@ -12,9 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Garniture {
 	@Id
-	@Column(length = 4)
+	@Column(length = 4,updatable = false)
 	private String code;
 	
-	@Column(length = 30,nullable = false )
+	@Column(length = 30,nullable = false,updatable = false )
 	private String nom;
+	
+	@Column
+	private boolean disponible;
 }
