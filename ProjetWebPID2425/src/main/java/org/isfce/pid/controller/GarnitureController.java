@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.isfce.pid.dao.IGarnitureJpaDao;
 import org.isfce.pid.model.Garniture;
+import org.isfce.pid.model.RGarniture;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,8 +40,8 @@ public class GarnitureController {
 	}
 
 	@GetMapping(params = "all")
-	ResponseEntity<List<Garniture>> getListeGarniture() {
-		return new ResponseEntity<>(dao.findAll(), HttpStatus.OK);
+	ResponseEntity<List<RGarniture>> getListeGarniture() {
+		return new ResponseEntity<>(dao.listeGarniture(), HttpStatus.OK);
 	}
 
 	@GetMapping(params = "dispo")
