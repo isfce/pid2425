@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IGarnitureJpaDao extends JpaRepository<Garniture, String>{
+public interface IGarnitureDao extends JpaRepository<Garniture, String>{
 
 	List<Garniture> findByDisponible(boolean dispo);
 	

@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.5'
+	id 'org.springframework.boot' version '3.4.0'
 	id 'io.spring.dependency-management' version '1.1.6'
 }
 
@@ -46,6 +46,12 @@ dependencies {
 	//Pour permettre une utilisation des webjar sans préciser la version
 	//et détecter l'endroit où se trouve les webjar
 	implementation 'org.webjars:webjars-locator:0.47'
+	
+	//Security
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
+	
 }
 
 tasks.named('test') {

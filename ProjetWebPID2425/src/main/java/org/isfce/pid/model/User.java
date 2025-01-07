@@ -1,7 +1,5 @@
 package org.isfce.pid.model;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -33,6 +31,12 @@ public class User {
 	private String nom;
 	@Column(length = 30)
 	private String prenom;
-	@Column(scale = 5, precision = 2)
-	private BigDecimal compte;
+	@Column
+	private Double solde;
+
+	public Double crediter(Double montant) {
+		assert montant >= 0 : "Le montant doit être positif";
+		solde = solde + montant;
+		return solde;
+	}
 }

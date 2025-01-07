@@ -13,5 +13,9 @@ public class AdviceController {
 	public ResponseEntity<String> erreursBD(SQLException exc){
 		return new ResponseEntity<String>("DB Erreurs",HttpStatus.BAD_REQUEST);
 	}
+	@ExceptionHandler(NotExistException.class)
+	public ResponseEntity<String> erreurNotFound(NotExistException esc) {
+		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+	}
 
 }

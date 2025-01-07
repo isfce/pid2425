@@ -2,7 +2,6 @@ package org.isfce.pid.model;
 
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 

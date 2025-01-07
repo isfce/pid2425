@@ -1,3 +1,6 @@
+server:
+  port: 9090
+#keySetURI: http://localhost:8080/realms/CAFET/protocol/openid-connect/certs
 spring:
   application:
     name: ProjetWebPID2425
@@ -35,4 +38,11 @@ spring:
       settings:
         trace: false
         web-allow-others: false
-  
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri:  http://localhost:8080/realms/CAFET
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+
