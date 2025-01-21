@@ -1,7 +1,6 @@
 package org.isfce.pid.config;
 
 import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +29,7 @@ public class SecurityConfig {
 		super();
 		this.converter = converter;
 	}
-	
+
 	@Bean
 	@Profile("dev")
 	WebSecurityCustomizer webSecurityCustomizer() {
@@ -39,31 +38,34 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.sessionManagement(t ->t .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-		http.csrf(c->c.disable());
-		http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-
-		.oauth2ResourceServer(c -> c.jwt(j -> j.jwkSetUri(keySetUri).jwtAuthenticationConverter(converter)));
-		http.authorizeHttpRequests(c -> 
-		c.requestMatchers("/api/garniture/**").hasAnyRole("USER")
-		.requestMatchers("/api/sandwichs/**").hasAuthority("USER")
-		.requestMatchers(HttpMethod.POST,"/api/user/incsolde/**").hasAnyRole("CAFET")
-		.requestMatchers(HttpMethod.GET,"/api/user/**").hasAnyRole("USER")
-		.anyRequest().authenticated());
+		http.sessionManagement(t -> t.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+		http.csrf(c -> c.disable());
+		http.cors(cors -> cors.configurationSource(corsConfigurationSource()))		
+				.oauth2ResourceServer(
+					//Version en utilisant le certificat en local
+					//c -> c.jwt(j->j.jwtAuthenticationConverter(converter))); 
+					//Version où le certificat est recherché sur Keycloak
+					c-> c.jwt(j ->j.jwkSetUri(keySetUri).jwtAuthenticationConverter(converter)));
+		http.authorizeHttpRequests(
+				c -> c.requestMatchers("/api/garniture/**").hasAnyRole("USER","CAFET")
+				.requestMatchers("/api/sandwichs/**").hasAnyRole("USER", "CAFET")
+				.requestMatchers(HttpMethod.POST, "/api/user/incsolde/**").hasAnyRole("CAFET", "ADMIN")
+				.anyRequest().authenticated());
 
 		return http.build();
 	}
-	
+
+	//A paramètrer par la suite pour spécifier les CrossOrigin
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
-	    CorsConfiguration configuration = new CorsConfiguration();
-	    configuration.setAllowedOrigins(Arrays.asList("*"));
-	    configuration.setAllowedMethods(Arrays.asList("*"));
-	    configuration.setAllowedHeaders(Arrays.asList("*"));
-	    configuration.setExposedHeaders(Arrays.asList("*"));
-	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	    source.registerCorsConfiguration("/**", configuration);
-	    return source;
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("*"));
+		configuration.setAllowedHeaders(Arrays.asList("*"));
+		configuration.setExposedHeaders(Arrays.asList("*"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
 	}
 
 }

@@ -1,6 +1,7 @@
 package org.isfce.pid.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.isfce.pid.controller.exceptions.NotExistException;
 import org.isfce.pid.dao.IUserDao;
@@ -32,6 +33,14 @@ public class UserService {
 
 	public List<UserDto> getAllUserDto() {
 		return daoUser.getAllUserDto();
+	}
+
+	public  Optional<User> getUserById(String username) {
+		return daoUser.findById(username);
+	}
+
+	public User addUser(User user) {
+		return daoUser.save(user);
 	}
 
 }

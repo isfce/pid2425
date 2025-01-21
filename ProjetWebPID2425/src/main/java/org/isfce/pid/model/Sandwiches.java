@@ -15,7 +15,7 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 
 public class Sandwiches extends Article {
-
+	
 	public Sandwiches(String code, String nom, boolean disponible, BigDecimal prix) {
 		super(code, nom, disponible);
 		this.prix = prix;

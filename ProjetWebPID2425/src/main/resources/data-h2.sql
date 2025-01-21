@@ -18,5 +18,5 @@ MERGE into TSANDWICHES(CODE,PRIX) values
 ('FROM',3.0);
 
 MERGE into TUSER(username,email,nom,prenom,solde) values
-('vo','vo@isfce.be','vo','Didier',10.0),
-('et1','et1@isfce.be','ET1','et1',5.3);
+('dvo','vo@isfce.be','VO','Didier',10.0),
+('et1','et1@isfce.be','Nom Et1','Prénom Et1',5.3);
