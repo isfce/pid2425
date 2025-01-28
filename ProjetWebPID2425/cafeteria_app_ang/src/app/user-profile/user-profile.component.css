@@ -1,0 +1,50 @@
+.user-info-card {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: burlywood;
+}
+
+
+.user-info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.user-info-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.user-info-value {
+  color: #555;
+  word-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+  .user-info-card {
+    padding: 15px;
+    max-width: 100%; /* La carte prend toute la largeur de l'écran */
+  }
+
+  .user-info-row {
+    flex-direction: column; /* Les éléments se placent verticalement */
+    align-items: flex-start;
+    margin-bottom: 10px; /* Moins d'espace entre les éléments */
+  }
+
+  .user-info-label {
+    margin-bottom: 5px;
+    font-size: 14px; /* Réduit la taille de la police pour les petits écrans */
+  }
+
+  .user-info-value {
+    font-size: 16px; /* Ajuste la taille de la valeur pour mieux correspondre */
+  }
+
+  .mat-card-title {
+    font-size: 18px; /* Réduit la taille du titre dans la carte */
+  }
+}

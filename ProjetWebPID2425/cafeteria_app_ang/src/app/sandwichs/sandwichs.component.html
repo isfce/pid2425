@@ -1,0 +1,13 @@
+<mat-card>
+  <img mat-card-image class="sandwich-image"  [src]="apiUrl"
+       alt="photo of {{ sandwich.nom }}"
+  />
+  <mat-card-content>
+    <h2 class="listing-heading">{{ sandwich.nom }}</h2>
+    <p class="listing-location">Prix: {{ sandwich.prix | currency:'EUR':'symbol':'1.1' }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="addToCart(sandwich)">Ajouter au panier</button>
+  </mat-card-actions>
+</mat-card>
+

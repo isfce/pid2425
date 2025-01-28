@@ -1,0 +1,17 @@
+
+
+.sandwich-image {
+  width: auto;
+  height: 150px;
+  object-fit: contain;
+}
+
+mat-card {
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;     /* Limite la largeur de la carte à un maximum */
+  width: auto;
+  max-height: 450px;    /* Hauteur maximale pour éviter que la carte ne devienne trop grande */
+  margin: auto;         /* Centrer les cartes lorsque seule une colonne est affichée */
+}
+

@@ -1,0 +1,29 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+  background: #e1e1e1;
+  padding: 10px;
+  color: #3c3c3c;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: end;
+  padding: 10px 20px;
+}
+
+.action-item {
+  padding: 5px 15px;
+  margin-left: 25px;
+}
+
+a.action-item {
+  color: #3c3c3c;
+  text-decoration: none;
+}
+
+a.action-item:hover {
+  background: #bfbfbf;
+  border-radius: 5px;
+}

@@ -1,0 +1,14 @@
+<header class="brand-name">
+  <nav class="menu">
+  <div class="actions">
+    <a routerLink="/home" class="action-item">Home</a>
+    <a routerLink="/sandwichs" class="action-item" *kaHasRoles="['USER']; checkRealm:true">Sandwichs</a>
+    <a routerLink="/profile" class="action-item" *kaHasRoles="['USER']; checkRealm:true">My Profile</a>
+    @if (!isAuthenticated()) {
+      <button class="action-item" (click)="login()">Login</button>
+    } @else {
+      <button class="action-item" (click)="logout()">Logout {{getUsername()}} </button>
+    }
+  </div>
+</nav>
+</header>
