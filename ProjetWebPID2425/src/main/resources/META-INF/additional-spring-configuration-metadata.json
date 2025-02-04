@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "keySetURI",
+    "type": "java.lang.String",
+    "description": "A description for 'keySetURI'"
+  },
+  {
+    "name": "cafet.session.activate.on-time",
+    "type": "java.lang.String",
+    "description": "A description for 'cafet.session.activate.on-time'"
+  },
+  {
+    "name": "cafet.session.soir.stop-time",
+    "type": "java.lang.String",
+    "description": "A description for 'cafet.session.soir.stop-time'"
+  },
+  {
+    "name": "cafet.session.apm.stop-time",
+    "type": "java.lang.String",
+    "description": "A description for 'cafet.session.apm.stop-time'"
+  },
+  {
+    "name": "cafet.session.matin.stop-time",
+    "type": "java.lang.String",
+    "description": "A description for 'cafet.session.matin.stop-time'"
+  }
+]}

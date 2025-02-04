@@ -46,4 +46,13 @@ spring:
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
           public-key-location: classpath:certificats/keycloak-public-cert.pem
 
-
+cafet:
+  session:
+    activate:
+      on-time: "0 0 8 * * MON-FRI"
+    matin:
+      stop-time: "0 30 9 * * 1-5"
+    apm:
+      stop-time: "0 30 14 * * 1-5"
+    soir:
+      stop-time: "0 30 19 * * 1-5"
