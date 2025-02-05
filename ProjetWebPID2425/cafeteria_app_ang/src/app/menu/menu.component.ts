@@ -6,11 +6,13 @@ import {
 } from 'keycloak-angular';
 
 import {AuthService} from '../auth.service';
+import { MatIconModule} from '@angular/material/icon';
+import {SidebarComponent} from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-menu',
   imports: [
-    RouterModule, HasRolesDirective,
+    RouterModule, HasRolesDirective, MatIconModule,
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
@@ -18,6 +20,7 @@ import {AuthService} from '../auth.service';
 })
 export class MenuComponent {
   private authService: AuthService = inject(AuthService);
+  private sideBar=inject(SidebarComponent);
 
   login() {
     this.authService.login();
@@ -33,5 +36,9 @@ export class MenuComponent {
 
   isAuthenticated() {
     return this.authService.isAuthenticated();
+  }
+
+  toggleMenu() {
+    this.sideBar.toggleMenu();
   }
 }
