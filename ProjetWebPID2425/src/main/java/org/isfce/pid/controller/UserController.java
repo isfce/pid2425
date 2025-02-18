@@ -47,7 +47,8 @@ public class UserController {
 
 	
 	@GetMapping("/profile/{id}")
-	@PreAuthorize(value = "hasRole('CAFET') or #username == authentication.name")
+	//@PreAuthorize(value = "hasRole('CAFET') or #username == authentication.name")
+	@PreAuthorize(value = "#username == authentication.name")
 	public ResponseEntity<UserDto> getUserInfo(@PathVariable("id") String username, JwtAuthenticationToken auth) {
 		
 		// verifie si l'utilisateur existe
@@ -57,7 +58,8 @@ public class UserController {
 		if (oUser.isPresent())
 			u = oUser.get();
 
-		else {//crée un utilisateur avec son solde à 0
+		else {
+			//crée un utilisateur avec son solde à 0
 			var token = auth.getToken();
 			String email = token.getClaimAsString("email");
 			String nom = token.getClaimAsString("family_name");
