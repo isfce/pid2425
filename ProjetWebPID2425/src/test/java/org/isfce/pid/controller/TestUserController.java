@@ -33,13 +33,12 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest // lance le contexte Spring
 @AutoConfigureMockMvc // Crée un mock mvc
 @ActiveProfiles(profiles = "testU") // active le profile "testU"
-@Sql(scripts = { "/dataTestU.sql" }, config = @SqlConfig(encoding = "utf-8")// fichier SQL avec les données pour les
-																			// tests
+@Sql(scripts = { "/dataTestU.sql" }, config = @SqlConfig(encoding = "utf-8")
+// fichier SQL avec les données pour les tests
 //permet de préciser d'autres paramètres de configuration
 //,config = @SqlConfig(encoding = "utf-8", transactionMode =TransactionMode.ISOLATED)
 )
 
-//@MockitoBean(types={UserService.class}) //création automatique d'un mock pour UserService
 class TestUserController {
 
 	@Autowired
@@ -54,10 +53,10 @@ class TestUserController {
 		User et1 = new User("et1", "et1@isfce.be", "Nom Et1", "Prénom Et1", 50.3);
 		User et2 = new User("et2", "et2@isfce.be", "Nom Et2", "Prénom Et2", 0.0);
 		User val = new User("val", "val@isfce.be", "DeLaCafet", "Valérie", 0.0);
-		when(userServiceMock.addUser(et2)).thenReturn(et2);
-		when(userServiceMock.existByUsername("et1")).thenReturn(true);
-		when(userServiceMock.existByUsername("et2")).thenReturn(false);
-		when(userServiceMock.existByUsername("val")).thenReturn(true);
+
+//		when(userServiceMock.existByUsername("et1")).thenReturn(true);
+//		when(userServiceMock.existByUsername("et2")).thenReturn(false);
+//		when(userServiceMock.existByUsername("val")).thenReturn(true);
 
 		when(userServiceMock.getUserById("et1")).thenReturn(Optional.of(et1));
 		when(userServiceMock.getUserById("et2")).thenReturn(Optional.empty());
@@ -78,8 +77,8 @@ class TestUserController {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	void testGetUserInfo() throws Exception {
+	@Test //
+	void testGetUserInfoEt1() throws Exception {
 		Jwt jwt = Jwt.withTokenValue("token").header("alg", "none").claim("sub", "et1")
 				.claim("scope", "openid email profile").claim("preferred_username", "et1")
 				.claim("given_name", "Prénom Et1").claim("family_name", "Nom Et1").claim("email", "et1@isfce.be")
@@ -90,6 +89,9 @@ class TestUserController {
 		mockMvc.perform(get("/api/user/profile/et1").with(authentication(token))).andExpect(status().isOk())
 				.andExpect(jsonPath("username").value("et1")).andExpect(jsonPath("email").value("et1@isfce.be"))
 				.andExpect(jsonPath("solde").value("50.3"));
+		
+		verify(userServiceMock).getUserById("et1");
+		verify(userServiceMock,times(0)).addUser(null);
 	}
 
 	@Test
@@ -105,8 +107,39 @@ class TestUserController {
 		mockMvc.perform(get("/api/user/profile/et2").with(authentication(token))).andExpect(status().isOk())
 				.andExpect(jsonPath("username").value("et2")).andExpect(jsonPath("email").value("et2@isfce.be"))
 				.andExpect(jsonPath("solde").value("0.0"));
-		verify(userServiceMock, times(1)).getUserById("et2");
-		verify(userServiceMock, times(1)).addUser(et2);
+		verify(userServiceMock).getUserById("et2");
+		verify(userServiceMock).addUser(et2);
 	}
 
+	@Test //
+	void testGetUserInfoEt1FromVal() throws Exception {
+		Jwt jwt = Jwt.withTokenValue("token").header("alg", "none").claim("sub", "")
+				.claim("scope", "openid email profile").claim("preferred_username", "val")
+				.claim("given_name", "Valérie").claim("family_name", "DeLaCafet").claim("email", "val@isfce.be")
+				.build();
+		Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_CAFET");
+		JwtAuthenticationToken token = new JwtAuthenticationToken(jwt, authorities);
+
+		mockMvc.perform(get("/api/user/profile/et1").with(authentication(token))).andExpect(status().isOk())
+				.andExpect(jsonPath("username").value("et1")).andExpect(jsonPath("email").value("et1@isfce.be"))
+				.andExpect(jsonPath("solde").value("50.3"));
+		verify(userServiceMock).getUserById("et1");
+		verify(userServiceMock,times(0)).addUser(null);
+	}
+	
+	@Test //info d'user qui n'existe pas
+	void testGetUserInfoBrolFromVal() throws Exception {
+		Jwt jwt = Jwt.withTokenValue("token").header("alg", "none").claim("sub", "")
+				.claim("scope", "openid email profile").claim("preferred_username", "val")
+				.claim("given_name", "Valérie").claim("family_name", "DeLaCafet").claim("email", "val@isfce.be")
+				.build();
+		Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_CAFET");
+		JwtAuthenticationToken token = new JwtAuthenticationToken(jwt, authorities);
+
+		mockMvc.perform(get("/api/user/profile/brol").with(authentication(token)))
+		.andExpect(status().isNotFound());
+				
+		verify(userServiceMock).getUserById("brol");
+		verify(userServiceMock,times(0)).addUser(null);
+	}
 }
