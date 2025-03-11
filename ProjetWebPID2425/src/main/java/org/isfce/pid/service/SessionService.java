@@ -56,7 +56,7 @@ public class SessionService {
 	 */
 	@Scheduled(cron = "${cafet.session.activate.on-time}")
 	private void activateSession() {
-		sessions.forEach((s) -> s.setActive());
+		sessions.forEach((s) -> s.ouvrir());
 	}
 
 	/**

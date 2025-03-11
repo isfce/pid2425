@@ -26,4 +26,4 @@ MERGE into TSAUCES(code) values
 MERGE into TUSER(username,email,nom,prenom,solde) values
 ('dvo','vo@isfce.be','VO','Didier',10.0),
 ('et1','et1@isfce.be','Nom Et1','Prénom Et1',50.3),
-('val','val@isfce.be','DeLaCafet','Valérie',0.0);
+('val','val@isfce.be','DeLaCafet','Valérie',0);

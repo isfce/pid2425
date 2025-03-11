@@ -5,6 +5,7 @@ import java.util.List;
 import org.isfce.pid.model.User;
 import org.isfce.pid.model.dto.UserDto;
 import org.isfce.pid.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -45,29 +46,26 @@ public class UserController {
 		return ResponseEntity.ok(userService.getAllUserDto());
 	}
 
-	
 	@GetMapping("/profile/{id}")
-	//@PreAuthorize(value = "hasRole('CAFET') or #username == authentication.name")
-	@PreAuthorize(value = "#username == authentication.name")
+	@PreAuthorize(value = "hasRole('CAFET') or #username == authentication.name")
 	public ResponseEntity<UserDto> getUserInfo(@PathVariable("id") String username, JwtAuthenticationToken auth) {
-		
-		// verifie si l'utilisateur existe
 		var oUser = userService.getUserById(username);
-		UserDto userDto;
-		User u;
-		if (oUser.isPresent())
-			u = oUser.get();
-
-		else {
-			//crée un utilisateur avec son solde à 0
+		
+		User user = oUser.orElse(null);
+		
+		// Crée l'utilisateur s'il n'existe pas et que
+		// l'utilisateur connecté correspond au username
+		if (oUser.isEmpty() && auth.getName().equals(username)) {
+			// crée un utilisateur avec son solde à 0
 			var token = auth.getToken();
 			String email = token.getClaimAsString("email");
 			String nom = token.getClaimAsString("family_name");
 			String prenom = token.getClaimAsString("given_name");
-			u = userService.addUser(new User(username, email, nom, prenom, 0.0));
+			user = userService.addUser(new User(username, email, nom, prenom, 0.0));
 		}
-		userDto = new UserDto(username, u.getEmail(), u.getSolde());
-		return ResponseEntity.ok(userDto);
+		if (user != null)
+			return ResponseEntity.ok(new UserDto(username, user.getEmail(), user.getSolde()));
+		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
 
 }

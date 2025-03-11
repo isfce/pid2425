@@ -25,7 +25,7 @@ public class UserService {
 		var oUser = daoUser.findById(username);
 
 		User user = oUser.orElseThrow(() -> new NotExistException(username));
-		Double solde=user.crediter(montant);
+		Double solde = user.crediter(montant);
 		daoUser.save(user);
 		return solde;
 
@@ -35,12 +35,16 @@ public class UserService {
 		return daoUser.getAllUserDto();
 	}
 
-	public  Optional<User> getUserById(String username) {
+	public Optional<User> getUserById(String username) {
 		return daoUser.findById(username);
 	}
 
 	public User addUser(User user) {
 		return daoUser.save(user);
+	}
+
+	public boolean existByUsername(String username) {
+		return daoUser.existsById(username);
 	}
 
 }

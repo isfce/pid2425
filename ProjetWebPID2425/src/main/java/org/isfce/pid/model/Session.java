@@ -19,11 +19,12 @@ public class Session {
 	private Boolean active;
 
 	private LocalTime heureCloture;
-/**
- * 
- * @param nom
- * @param heureCloture
- */
+
+	/**
+	 * 
+	 * @param nom
+	 * @param heureCloture
+	 */
 	public Session(String nom, LocalTime heureCloture) {
 		this.nom = nom;
 		this.active = false;
@@ -40,10 +41,14 @@ public class Session {
 	}
 
 	/**
-	 * Désactive une session si son état n'est pas cloturé
+	 * Pour désactiver une session celle-ci doit être fermée A Adapter
 	 */
 	public void desactiveSession() {
-		if (!EtatSession.CLOTUREE.equals(etat)) {
+		if (EtatSession.FERMEE.equals(etat)) {
+			active = false;
+		} else if (EtatSession.OUVERTE.equals(etat)) {
+			// TODO
+			// Que faire si des sandwichs ont déjà été commandés??
 			active = false;
 		}
 	}
