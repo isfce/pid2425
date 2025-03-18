@@ -33,12 +33,12 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest // lance le contexte Spring
 @AutoConfigureMockMvc // Crée un mock mvc
 @ActiveProfiles(profiles = "testU") // active le profile "testU"
+//Pas utilisé pour l'instant dans ce test car pas d'accès à la BD
 @Sql(scripts = { "/dataTestU.sql" }, config = @SqlConfig(encoding = "utf-8")
 // fichier SQL avec les données pour les tests
 //permet de préciser d'autres paramètres de configuration
 //,config = @SqlConfig(encoding = "utf-8", transactionMode =TransactionMode.ISOLATED)
 )
-
 class TestUserController {
 
 	@Autowired
